@@ -1,13 +1,13 @@
 "use client";
 
-import { JakartaTransportMap } from "@/components/jakarta-transport-map";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useQueryState } from "nuqs";
+import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
+import { JakartaTransportMap } from "@/components/jakarta-transport-map";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { getPreviousLine, getNextLine } from "@/lib/jakarta-lines";
-import type { ReactNode } from "react";
+import { getNextLine, getPreviousLine } from "@/lib/jakarta-lines";
 
 type JakartaTransportMapClientProps = {
   contentMap: Record<string, ReactNode>;
@@ -63,7 +63,7 @@ export function JakartaTransportMapClient({
     <>
       {/* Mobile Layout */}
       <div className="block lg:hidden">
-        <main className="-mt-16 relative">
+        <main className="relative -mt-16">
           {/* Map Section */}
           <div className="relative w-full bg-muted" style={{ height: "50vh" }}>
             {isMounted && (

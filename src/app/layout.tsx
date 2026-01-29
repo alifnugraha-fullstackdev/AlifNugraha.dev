@@ -6,6 +6,7 @@ import {
   Geist,
   Geist_Mono,
   Instrument_Serif,
+  Inter,
 } from "next/font/google";
 import localFont from "next/font/local";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
@@ -28,6 +29,10 @@ const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
   subsets: ["latin"],
   weight: "400",
+});
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
 });
 
 const neueMontreal = localFont({
@@ -65,7 +70,7 @@ export default function RootLayout({
     /* Suppress Hydration Warning because of Next Themes. */
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${grotesque.variable} ${instrumentSerif.variable} ${neueMontreal.variable} ${neueMontrealMono.variable} font-grotesque antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${grotesque.variable} ${instrumentSerif.variable} ${inter.variable} ${neueMontreal.variable} ${neueMontrealMono.variable} font-grotesque antialiased`}
         suppressHydrationWarning
       >
         <NuqsAdapter>
