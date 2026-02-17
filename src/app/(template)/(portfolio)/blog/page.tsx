@@ -1,17 +1,16 @@
 import { PathUtils } from "fumadocs-core/source";
-import { blog } from "@/lib/source";
-
-import { PlusSeparator } from "@/components/ui/plus-separator";
-import Link from "next/link";
-import { HeaderBanner } from "./banner.client";
 import Image from "next/image";
-import { getBlogPageImage } from "@/lib/metadata";
+import Link from "next/link";
+import { PlusSeparator } from "@/components/ui/plus-separator";
 import { Separator } from "@/components/ui/separator";
+import { getBlogPageImage } from "@/lib/metadata";
+import { blog } from "@/lib/source";
 import { cn } from "@/lib/utils";
+import { HeaderBanner } from "./banner.client";
 
 export default function BlogPage() {
   const posts = [...blog.getPages()]
-    .filter((blog) => !blog.data.subpage)
+    .filter((blog) => !blog.data.subpage && !blog.data.hidden)
     .sort(
       (a, b) =>
         new Date(b.data.date ?? getName(b.path)).getTime() -
