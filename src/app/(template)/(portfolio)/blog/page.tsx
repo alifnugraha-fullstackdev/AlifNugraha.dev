@@ -1,20 +1,21 @@
 import { PathUtils } from "fumadocs-core/source";
-import { blog } from "@/lib/source";
-
-import { PlusSeparator } from "@/components/ui/plus-separator";
-import Link from "next/link";
-import { HeaderBanner } from "./banner.client";
 import Image from "next/image";
-import { getBlogPageImage } from "@/lib/metadata";
+import Link from "next/link";
+import { PlusSeparator } from "@/components/ui/plus-separator";
 import { Separator } from "@/components/ui/separator";
+import { getBlogPageImage } from "@/lib/metadata";
+import { blog } from "@/lib/source";
 import { cn } from "@/lib/utils";
+import { HeaderBanner } from "./banner.client";
 
 export default function BlogPage() {
-  const posts = [...blog.getPages()].sort(
-    (a, b) =>
-      new Date(b.data.date ?? getName(b.path)).getTime() -
-      new Date(a.data.date ?? getName(a.path)).getTime(),
-  );
+  const posts = [...blog.getPages()]
+    .filter((blog) => !blog.data.subpage && !blog.data.hidden)
+    .sort(
+      (a, b) =>
+        new Date(b.data.date ?? getName(b.path)).getTime() -
+        new Date(a.data.date ?? getName(a.path)).getTime(),
+    );
 
   return (
     <main>
@@ -45,7 +46,7 @@ export default function BlogPage() {
               <p className="mt-5 font-medium text-lg leading-5">
                 {post.data.title}
               </p>
-              <p className="text-fd-muted-foreground text-sm leading-6">
+              <p className="mt-px text-fd-muted-foreground text-sm leading-4.5">
                 {post.data.description}
               </p>
 

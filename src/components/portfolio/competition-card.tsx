@@ -1,9 +1,9 @@
+import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import type { Hackathon } from "@/content/portfolio/hackathons";
-import Link from "next/link";
+import type { Competition } from "@/constants/portfolio/competitions";
 
-export function HackathonCard({
+export function CompetitionCard({
   title,
   description,
   dates,
@@ -11,26 +11,44 @@ export function HackathonCard({
   image,
   links,
   flags,
-}: Hackathon) {
+}: Competition) {
   return (
     <li className="relative ml-10 py-4">
-      <div className="-left-16 absolute top-2 flex items-center justify-center rounded-full bg-white">
+      <div className="absolute top-2 -left-16 flex items-center justify-center rounded-full bg-white">
         <Avatar className="m-auto size-12 border">
           <AvatarImage src={image} alt={title} className="object-contain" />
           <AvatarFallback>{title[0]}</AvatarFallback>
         </Avatar>
       </div>
-      <div className="flex flex-1 flex-col justify-start gap-1 text-sm sm:text-base">
+      <div className="flex flex-1 flex-col justify-center gap-1 text-sm sm:text-base">
         {dates && (
           <time className="text-muted-foreground text-xs">{dates}</time>
         )}
-        <h2 className="font-semibold leading-none">
+        <h2 className="flex items-center font-semibold leading-none">
           {title}
-          {flags?.includes("committee") && (
-            <Badge className="ml-2 bg-green-100 text-2xs text-green-800 sm:text-xs dark:bg-green-800 dark:text-green-100">
-              Committee
-            </Badge>
-          )}
+          {flags?.map((flag, idx) => {
+            if (flag === "committee") {
+              return (
+                <Badge key={idx} variant="outline" className="ml-2">
+                  Committee
+                </Badge>
+              );
+            }
+
+            const [type, value] = flag.split(":");
+            if (type === "winner") {
+              return (
+                <Badge
+                  key={idx}
+                  className="ml-2 bg-gradient-to-r from-amber-400 to-amber-500 text-black dark:from-amber-200 dark:to-amber-300"
+                >
+                  {value}
+                </Badge>
+              );
+            }
+
+            return null;
+          })}
         </h2>
         {location && (
           <p className="text-muted-foreground text-xs sm:text-sm">{location}</p>

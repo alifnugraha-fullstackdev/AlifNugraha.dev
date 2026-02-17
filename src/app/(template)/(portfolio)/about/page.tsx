@@ -1,18 +1,14 @@
-import Link from "next/link";
-
-import { HeaderBanner, SideNoise } from "./banner.client";
-
 import { ArrowRight } from "lucide-react";
-import { contacts, techStacks } from "@/content/portfolio/about";
+import Link from "next/link";
 import { AnimatedBackground } from "@/components/portfolio/animated-background";
+import { CompetitionCard } from "@/components/portfolio/competition-card";
 import SocialBento from "@/components/portfolio/social-bento";
-import { getGithubContributions } from "@/lib/portfolio/social";
-import { HackathonCard } from "@/components/portfolio/hackathon-card";
-
 import { PlusSeparator } from "@/components/ui/plus-separator";
-
-import { hackathons } from "@/content/portfolio/hackathons";
+import { contacts, techStacks } from "@/constants/portfolio/about";
+import { competitions } from "@/constants/portfolio/competitions";
+import { getGithubContributions } from "@/lib/portfolio/social";
 import SoonSection from "../soon";
+import { HeaderBanner, SideNoise } from "./banner.client";
 
 export default async function AboutSection() {
   const githubContributions = await getGithubContributions();
@@ -62,13 +58,13 @@ export default async function AboutSection() {
           <div className="w-full px-4 py-12">
             <span className="relative">
               <h2 className="mb-6 text-center font-medium text-4xl">
-                Hackathon attended so far
+                Competition attended so far
               </h2>
               <div className="absolute bottom-0 h-8 w-full bg-linear-to-b from-transparent to-background/40" />
             </span>
             <ul className="mb-4 ml-8 max-w-full divide-y divide-dashed border-l">
-              {hackathons.map((hackathon, idx) => (
-                <HackathonCard
+              {competitions.map((hackathon, idx) => (
+                <CompetitionCard
                   key={idx}
                   title={hackathon.title}
                   description={hackathon.description}
