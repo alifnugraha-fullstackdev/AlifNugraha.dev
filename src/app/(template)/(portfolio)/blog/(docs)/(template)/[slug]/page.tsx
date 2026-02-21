@@ -1,14 +1,14 @@
+import path from "node:path";
+import { DocsPage } from "fumadocs-ui/layouts/docs/page";
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { InlineTOC } from "@/components/markdown/inline-toc";
-import { blog } from "@/lib/source";
-import { createMetadataBlog, getBlogPageImage } from "@/lib/metadata";
-import { ShareButton } from "./page.client";
 import { getMDXComponents } from "@/components/markdown/mdx-components";
-import path from "node:path";
-import Image from "next/image";
+import { createMetadataBlog, getBlogPageImage } from "@/lib/metadata";
+import { blog } from "@/lib/source";
 import { cn } from "@/lib/utils";
-import { DocsPage } from "fumadocs-ui/layouts/docs/page";
+import { ShareButton } from "./page.client";
 
 export default async function Page(props: PageProps<"/blog/[slug]">) {
   const params = await props.params;
@@ -34,6 +34,9 @@ export default async function Page(props: PageProps<"/blog/[slug]">) {
       }}
       tableOfContentPopover={{
         style: "clerk",
+      }}
+      footer={{
+        enabled: false,
       }}
     >
       <article className="mx-auto flex w-full max-w-[800px] flex-col px-4 py-16">

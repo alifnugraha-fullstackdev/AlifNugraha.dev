@@ -63,16 +63,16 @@ export default async function AboutSection() {
               <div className="absolute bottom-0 h-8 w-full bg-linear-to-b from-transparent to-background/40" />
             </span>
             <ul className="mb-4 ml-8 max-w-full divide-y divide-dashed border-l">
-              {competitions.map((hackathon, idx) => (
+              {competitions.map((competition, idx) => (
                 <CompetitionCard
                   key={idx}
-                  title={hackathon.title}
-                  description={hackathon.description}
-                  location={hackathon.location}
-                  dates={hackathon.dates}
-                  image={hackathon.image}
-                  links={hackathon.links}
-                  flags={hackathon.flags}
+                  title={competition.title}
+                  description={competition.description}
+                  location={competition.location}
+                  dates={competition.dates}
+                  image={competition.image}
+                  links={competition.links}
+                  flags={competition.flags}
                 />
               ))}
             </ul>

@@ -39,7 +39,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { ProgressCircle } from "../ui/progress";
 import { Skeleton } from "../ui/skeleton";
 
-const codeActivities = ["visual studio code"];
+const codeActivities = ["visual studio code", "zed"];
 
 const CRAWLER_UA_RE =
   /bot|crawler|spider|crawl|slurp|mediapartners-google|adsbot|bingpreview|duckduckbot|yandex/i;
@@ -378,9 +378,18 @@ export default function SocialBento({
                   {codeActivity.details
                     ?.split(" - ")[0]
                     .toLowerCase()
-                    .startsWith("in ")
-                    ? `Coding in ${codeActivity.details?.split(" - ")[0].replace("In ", "")}`
-                    : codeActivity.details?.split(" - ")[0]}
+                    .startsWith("in ") ? (
+                    <>
+                      Coding in{" "}
+                      <u className="font-mono">
+                        {codeActivity.details
+                          ?.split(" - ")[0]
+                          .replace("In ", "")}
+                      </u>
+                    </>
+                  ) : (
+                    codeActivity.details?.split(" - ")[0]
+                  )}
                 </h3>
                 <p className="mb-1 text-2xs">
                   {codeActivity.details?.split(" - ")[1]}

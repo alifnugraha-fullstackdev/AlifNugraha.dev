@@ -24,12 +24,18 @@ export function CompetitionCard({
         {dates && (
           <time className="text-muted-foreground text-xs">{dates}</time>
         )}
-        <h2 className="flex items-center font-semibold leading-none">
+        <div
+          className={
+            (flags || []).length > 1
+              ? "mb-1 flex flex-col justify-center gap-1 font-semibold leading-none xl:mb-0 xl:flex-row xl:items-center xl:justify-start xl:gap-0"
+              : "flex items-center font-semibold leading-none"
+          }
+        >
           {title}
           {flags?.map((flag, idx) => {
             if (flag === "committee") {
               return (
-                <Badge key={idx} variant="outline" className="ml-2">
+                <Badge key={idx} variant="outline" className="ml-0 xl:ml-2">
                   Committee
                 </Badge>
               );
@@ -40,7 +46,7 @@ export function CompetitionCard({
               return (
                 <Badge
                   key={idx}
-                  className="ml-2 bg-gradient-to-r from-amber-400 to-amber-500 text-black dark:from-amber-200 dark:to-amber-300"
+                  className="ml-0 bg-gradient-to-r from-amber-400 to-amber-500 text-black xl:ml-2 dark:from-amber-200 dark:to-amber-300"
                 >
                   {value}
                 </Badge>
@@ -49,7 +55,7 @@ export function CompetitionCard({
 
             return null;
           })}
-        </h2>
+        </div>
         {location && (
           <p className="text-muted-foreground text-xs sm:text-sm">{location}</p>
         )}
