@@ -32,6 +32,19 @@ const nextConfig: NextConfig = {
     ],
     minimumCacheTTL: 60 * 60 * 24 * 28, // 28 days
   },
+  async rewrites() {
+    return [
+      {
+        source: "/api/p/static/:path*",
+        destination: "https://us-assets.i.posthog.com/static/:path*",
+      },
+      {
+        source: "/api/p/:path*",
+        destination: "https://us.i.posthog.com/:path*",
+      },
+    ];
+  },
+  skipTrailingSlashRedirect: true,
   allowedDevOrigins: ["192.168.1.*"],
   reactCompiler: true,
   reactStrictMode: true,
