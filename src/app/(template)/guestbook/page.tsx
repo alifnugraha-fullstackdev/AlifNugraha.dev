@@ -383,7 +383,7 @@ export default function GuestbookPage() {
                 </div>
               ) : (
                 <div className="flex h-full flex-col items-center justify-center gap-4">
-                  <p className="text-muted-foreground text-sm">
+                  <p className="mx-4 text-center text-muted-foreground text-sm">
                     Sign in to comment and react. Don't worry, your data is
                     safe.
                   </p>
