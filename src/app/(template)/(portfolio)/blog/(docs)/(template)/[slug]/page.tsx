@@ -41,7 +41,7 @@ export default async function Page(props: PageProps<"/blog/[slug]">) {
     >
       <article className="mx-auto flex w-full max-w-[800px] flex-col px-4 py-16">
         <h1 className="mb-4 font-semibold text-3xl">{page.data.title}</h1>
-        <section className="prose dark:prose-invert flex items-center justify-between">
+        <section className="prose dark:prose-invert flex min-w-full items-center justify-between">
           <div className="not-prose mb-8 flex flex-row gap-4 text-sm">
             <div>
               <p className="text-muted-foreground">Written by</p>
@@ -67,12 +67,12 @@ export default async function Page(props: PageProps<"/blog/[slug]">) {
           width={image.width}
           height={image.height}
           className={cn(
-            "mb-2 max-w-full rounded-md md:max-w-prose",
+            "mx-auto mb-2 max-w-full rounded-md md:max-w-prose",
             image.invertable && "invert-100 dark:invert-0",
           )}
           unoptimized
         />
-        <div className="prose dark:prose-invert min-w-0 flex-1">
+        <div className="prose dark:prose-invert mx-auto min-w-0 flex-1">
           {page.data.flags?.includes("personal-opinion") && (
             <p className="mt-8 rounded-md border-yellow-500 border-l-4 bg-yellow-300/50 p-4 text-xs md:text-sm">
               ⚠️ <strong>Personal Opinion:</strong> The views expressed in this
