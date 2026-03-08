@@ -1,92 +1,51 @@
 "use client";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import hackclub from "#/static/images/hackclub.svg";
-import Image from "next/image";
-
-import Link from "next/link";
-import useSWR from "swr";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { getWebring } from "@/lib/actions/webring";
-import posthog from "posthog-js";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export default function HCWebring() {
-  const { data } = useSWR(
-    "https://webring.hackclub.com/members.json",
-    getWebring,
-  );
+  const [isMounted, setIsMounted] = useState(false);
+  const { resolvedTheme } = useTheme();
 
-  return (
-    <TooltipProvider>
-      <Tooltip delayDuration={150}>
-        <TooltipTrigger className="group flex items-center space-x-2">
-          {!data ? (
-            <ChevronLeft size={14} className="animate-pulse" />
-          ) : (
-            <Link
-              href={data.previous.url}
-              onClick={() =>
-                posthog.capture("buttonClicked", {
-                  location: "footer",
-                  section: "webring",
-                  value: "previous",
-                })
-              }
-            >
-              <ChevronLeft
-                size={14}
-                className="transition hover:text-blue-300"
-              />
-              <p className="sr-only">View previous member</p>
-            </Link>
-          )}
-          <Link
-            href="https://webring.hackclub.com"
-            onClick={() =>
-              posthog.capture("buttonClicked", {
-                location: "footer",
-                section: "webring",
-                value: "home",
-              })
-            }
-          >
-            <Image
-              src={hackclub}
-              alt="Hack Club Webring"
-              width={18}
-              height={18}
-              className="grayscale transition-[filter] duration-300 group-hover:grayscale-0"
-            />
-          </Link>
-          {!data ? (
-            <ChevronRight size={14} className="animate-pulse" />
-          ) : (
-            <Link
-              href={data.next.url}
-              onClick={() =>
-                posthog.capture("buttonClicked", {
-                  location: "footer",
-                  section: "webring",
-                  value: "next",
-                })
-              }
-            >
-              <ChevronRight
-                size={14}
-                className="transition hover:text-blue-300"
-              />
-              <p className="sr-only">View next member</p>
-            </Link>
-          )}
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>Click the arrows to see other websites of Hack Club members.</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  );
+  // biome-ignore lint/correctness/useExhaustiveDependencies: idk
+  useEffect(() => {
+    const applyLenisPrevent = () => {
+      // <pagering-overlay> is a custom element appended directly to document.body,
+      // not inside the shadow root of <pagering-link>.
+      const overlay = document.querySelector("pagering-overlay");
+      if (!overlay) return;
+
+      // Mark the custom element itself
+      if (!overlay.hasAttribute("data-lenis-prevent")) {
+        overlay.setAttribute("data-lenis-prevent", "");
+      }
+
+      // Also mark the inner overflow-y-auto scrollable div so Lenis
+      // definitely yields scroll control to it
+      const scrollable = overlay.querySelector(".overflow-y-auto");
+      if (scrollable && !scrollable.hasAttribute("data-lenis-prevent")) {
+        scrollable.setAttribute("data-lenis-prevent", "");
+      }
+    };
+
+    const observer = new MutationObserver(applyLenisPrevent);
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Run once immediately in case the element is already present
+    applyLenisPrevent();
+
+    setIsMounted(true);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  if (isMounted)
+    return (
+      // @ts-expect-error - This is a custom element, so TypeScript doesn't know about it.
+      <pagering-link theme={resolvedTheme}></pagering-link>
+    );
+
+  return null;
 }
