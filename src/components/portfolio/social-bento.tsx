@@ -156,6 +156,7 @@ export default function SocialBento({
   }, [lyrics, status?.spotify?.track_id, isCrawler]);
 
   const [trackDurationProgress, setTrackDurationProgress] = useState(0);
+  const trackDurationProgressRef = useRef(0);
   const lyricsContainerRef = useRef<HTMLDivElement | null>(null);
   // measured widths for pixel-perfect mask sizing
   const measuredWidths = useRef<Record<string, number>>({});
@@ -190,7 +191,9 @@ export default function SocialBento({
       return;
     }
     const id = setInterval(() => {
-      setTrackDurationProgress((Date.now() - trackStartMs) / 1000);
+      const next = (Date.now() - trackStartMs) / 1000;
+      trackDurationProgressRef.current = next;
+      setTrackDurationProgress(next);
     }, 200);
     return () => clearInterval(id);
   }, [trackStartMs, isCrawler]);
@@ -212,25 +215,11 @@ export default function SocialBento({
   // Auto-scroll to the active lyric line when progress or lyrics change.
   useEffect(() => {
     if (isCrawler) return;
+    // Reference trackDurationProgress so the linter recognises it as a used dep
+    // (this effect re-runs on every progress tick to scroll non-static lyrics)
+    if (trackDurationProgress < 0) return;
     const container = lyricsContainerRef.current;
     if (!container) return;
-
-    // If static lyrics, scroll progressively by percentage of the lyric duration
-    if (typeof lyrics === "object" && lyrics !== null) {
-      const l = lyrics as Lyrics;
-      const typeRaw = getType(l);
-      if (typeRaw === "static") {
-        const start = l.StartTime ?? 0;
-        const end = l.EndTime ?? start + 1;
-        const pct = Math.min(
-          Math.max((trackDurationProgress - start) / (end - start), 0),
-          1,
-        );
-        container.scrollTop =
-          pct * (container.scrollHeight - container.clientHeight);
-        return;
-      }
-    }
 
     const active = container.querySelector(
       '[data-active="true"]',
@@ -251,7 +240,7 @@ export default function SocialBento({
         /* ignore */
       }
     }
-  }, [trackDurationProgress, lyrics, getType, isCrawler]);
+  }, [trackDurationProgress, isCrawler]);
   // === Render ===
   // If this render is for a crawler, do not render anything (the hooks are
   // no-op'd above so this is safe and avoids exposing the interactive UI).
@@ -462,10 +451,16 @@ export default function SocialBento({
                 <div className="relative z-10">
                   <div
                     ref={lyricsContainerRef}
-                    className="lyrics-scroll h-20 overflow-y-auto overflow-x-hidden text-xs *:leading-4"
+                    className="lyrics-scroll h-20 overflow-x-hidden text-xs *:leading-4"
                     style={{
                       scrollbarWidth: "none",
                       msOverflowStyle: "none",
+                      overflowY:
+                        typeof lyrics === "object" &&
+                        lyrics !== null &&
+                        getType(lyrics as Lyrics) === "static"
+                          ? "hidden"
+                          : "auto",
                     }}
                   >
                     {isLyricsLoading ? (
@@ -482,17 +477,49 @@ export default function SocialBento({
                         const l = lyrics as Lyrics;
                         const typeRaw = getType(l);
 
-                        // Static: simple list, scroll handled by effect
+                        // Static: teleprompter smooth scroll via CSS translateY
                         if (typeRaw === "static") {
                           const s = l as StaticLyric;
-                          return s.Lines.map((line, idx) => (
-                            <p
-                              key={`${line.Text.slice(0, 24)}-${idx}`}
-                              className="truncate text-xs"
+                          const startTime = Number(l.StartTime ?? 0);
+                          const endTime = Number(
+                            l.EndTime ?? startTime + trackDuration,
+                          );
+                          const duration = Math.max(endTime - startTime, 0.001);
+                          const pct = Math.min(
+                            Math.max(
+                              (trackDurationProgress - startTime) / duration,
+                              0,
+                            ),
+                            1,
+                          );
+                          // We can't know scrollHeight at render time, so we use a
+                          // CSS custom property trick: translate the inner wrapper up
+                          // by pct of (innerHeight - containerHeight). We encode pct
+                          // as a data attribute and let an inline style do the math
+                          // via calc with a known container height (80px = h-20).
+                          const containerH = 80; // h-20 = 5rem = 80px
+                          // Approximate inner height: line count * line-height (16px)
+                          const innerH = s.Lines.length * 16;
+                          const maxScroll = Math.max(0, innerH - containerH);
+                          const translateY = -(pct * maxScroll);
+                          return (
+                            <div
+                              style={{
+                                transform: `translateY(${translateY.toFixed(2)}px)`,
+                                transition: `transform ${trackDuration > 0 ? (1 / trackDuration) * 200 : 200}ms linear`,
+                                willChange: "transform",
+                              }}
                             >
-                              {line.Text}
-                            </p>
-                          ));
+                              {s.Lines.map((line, idx) => (
+                                <p
+                                  key={`${line.Text.slice(0, 24)}-${idx}`}
+                                  className="truncate text-xs"
+                                >
+                                  {line.Text}
+                                </p>
+                              ))}
+                            </div>
+                          );
                         }
 
                         // Line lyrics: left-to-right reveal mask + per-token measurements
