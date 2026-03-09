@@ -14,7 +14,7 @@ export default async function AboutSection() {
   const githubContributions = await getGithubContributions();
   return (
     <main>
-      <section className="w-full border-separator/10 border-y">
+      <section className="w-full border-separator/10 border-b">
         <div className="inner relative flex h-16 gap-2 border-separator/10 border-x"></div>
       </section>
       <HeaderBanner />
