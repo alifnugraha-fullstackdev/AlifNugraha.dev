@@ -1,16 +1,14 @@
 "use client";
-import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
-import Link from "next/link";
-
-import moment from "moment-timezone";
-
-import { cn } from "@/lib/utils";
-import BauhausGenerator from "@/components/portfolio/bauhaus-generator";
-import { PlusSeparator } from "@/components/ui/plus-separator";
 
 import { cva } from "class-variance-authority";
+import moment from "moment-timezone";
+import dynamic from "next/dynamic";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import BauhausGenerator from "@/components/portfolio/bauhaus-generator";
+import { PlusSeparator } from "@/components/ui/plus-separator";
 import { useThemeStore } from "@/lib/store/hero-theme";
+import { cn } from "@/lib/utils";
 
 const backgroundImageVariants = cva("", {
   variants: {
@@ -34,7 +32,7 @@ export default function HeroSection() {
     <section className="relative flex flex-col">
       <div
         className={cn(
-          "inner relative flex h-[80vh] flex-col justify-around border-separator/10 border-x border-t px-4 transition-all *:transition-all sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-0 lg:px-16",
+          "inner relative flex h-[80vh] flex-col justify-around border-separator/10 border-x px-4 transition-all *:transition-all sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-0 lg:px-16",
           backgroundImageVariants({ variant: currentTheme }),
         )}
       >

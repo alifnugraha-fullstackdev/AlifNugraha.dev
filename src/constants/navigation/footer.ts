@@ -19,7 +19,7 @@ export const socials = [
   },
   {
     name: "Instagram",
-    href: "https://www.instagram.com/hxgn.scoooolzs",
+    href: "https://www.instagram.com/hexaaheks",
     icon: SiInstagram,
   },
 ];

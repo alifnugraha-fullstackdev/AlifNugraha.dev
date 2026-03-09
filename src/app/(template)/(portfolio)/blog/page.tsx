@@ -19,7 +19,7 @@ export default function BlogPage() {
 
   return (
     <main>
-      <section className="w-full border-separator/10 border-y">
+      <section className="w-full border-separator/10 border-b">
         <div className="inner relative flex h-16 gap-2 border-separator/10 border-x"></div>
       </section>
       <HeaderBanner />
