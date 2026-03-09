@@ -1,5 +1,6 @@
-import { Home, Video } from "lucide-react";
+import { Home, Rss, Video } from "lucide-react";
 import type { ComponentProps } from "react";
+import { baseUrl } from "@/app/sitemap";
 import type { Badge } from "@/components/ui/badge";
 
 export type Competition = {
@@ -25,6 +26,14 @@ export const competitions: Array<Competition> = [
       "FIRST Tech Challenge is a global robotics competition that inspires young people to become leaders in science and technology. The FTC DECODE Nusantara Championship is the Indonesian regional championship, where teams of students design, build, and program robots to compete in a series of challenges.",
     flags: ["winner:Winning Alliance", "winner:2nd Winner of Inspire Award"],
     image: "/static/images/competitions/ftc-decode-indonesia.png",
+    links: [
+      {
+        title: "Personal Blog Post",
+        href: baseUrl("/blog/my-first-time-doing-robotics"),
+        icon: <Rss />,
+        variant: "secondary",
+      },
+    ],
   },
   {
     title: "Daydream Jakarta",

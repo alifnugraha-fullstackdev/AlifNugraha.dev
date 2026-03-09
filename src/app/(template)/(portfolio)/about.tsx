@@ -1,7 +1,9 @@
 "use client";
+import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import useSWR from "swr/immutable";
-
+import { CloudflareImage } from "@/components/image";
 import { PlusSeparator } from "@/components/ui/plus-separator";
 import {
   Tooltip,
@@ -10,10 +12,6 @@ import {
 } from "@/components/ui/tooltip";
 import { wakaTimeData } from "@/lib/actions/wakatime";
 import { cn } from "@/lib/utils";
-
-import Link from "next/link";
-import dynamic from "next/dynamic";
-import { CloudflareImage } from "@/components/image";
 
 const SkillsSection = dynamic(() => import("./about-skills"), { ssr: false });
 
@@ -40,7 +38,7 @@ export default function AboutSection() {
               alt="hello."
               height={60}
               width={120}
-              className="-mt-5 pointer-events-none mb-4 aspect-auto select-none [image-rendering:pixelated] dark:invert"
+              className="pointer-events-none -mt-5 mb-4 aspect-auto select-none [image-rendering:pixelated] dark:invert"
               fetchPriority="high"
             />
             <p>

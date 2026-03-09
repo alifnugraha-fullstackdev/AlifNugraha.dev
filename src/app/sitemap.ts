@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const baseUrl = (path: string) =>
+export const baseUrl = (path: string) =>
   `${process.env.BETTER_AUTH_URL || "https://hexaa.sh"}${path}`;
 
 export default function sitemap(): MetadataRoute.Sitemap {
