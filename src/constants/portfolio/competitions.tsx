@@ -19,6 +19,22 @@ export type Competition = {
 };
 export const competitions: Array<Competition> = [
   {
+    title: "Campfire Jakarta",
+    dates: "March, 2026",
+    location: "Jakarta, Indonesia",
+    description:
+      "2-days game jams in Jakarta, where 70+ teens worked together to make amazing games, alongside events in 200+ other cities worldwide in a global event by Hack Club.",
+    flags: ["committee"],
+    image: "/static/images/competitions/campfire-jakarta.png",
+    links: [
+      {
+        title: "Landing Page",
+        href: "https://campfire.hackclub.com/",
+        icon: <Home />,
+      },
+    ],
+  },
+  {
     title: "FIRST Tech Challange Nusantara Championship",
     dates: "February, 2026",
     location: "Depok, Indonesia",
@@ -31,6 +47,11 @@ export const competitions: Array<Competition> = [
         title: "Personal Blog Post",
         href: baseUrl("/blog/my-first-time-doing-robotics"),
         icon: <Rss />,
+      },
+      {
+        title: "Aftermovie",
+        href: "https://www.youtube.com/watch?v=UzWc2K0RsjM",
+        icon: <Video />,
         variant: "secondary",
       },
     ],
@@ -50,7 +71,7 @@ export const competitions: Array<Competition> = [
         icon: <Home />,
       },
       {
-        title: "Video Recap",
+        title: "Aftermovie",
         href: "https://www.youtube.com/watch?v=vvdoW2gh9YU",
         icon: <Video />,
         variant: "secondary",
