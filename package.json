@@ -126,6 +126,7 @@
     "@prisma/client",
     "@tailwindcss/oxide",
     "@vercel/speed-insights",
+    "argon2",
     "better-sqlite3",
     "core-js",
     "esbuild",
