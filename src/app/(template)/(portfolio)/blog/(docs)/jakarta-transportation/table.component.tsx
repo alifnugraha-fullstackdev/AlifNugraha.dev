@@ -104,8 +104,36 @@ export function TransportInformationTable(
             <></>
           )}
         </div>
+      ) : props.underConstruction ? (
+        <div className="space-y-2">
+          <section className="flex flex-col gap-1 rounded-xs border bg-accent/50 p-4 px-5 dark:bg-accent/30">
+            <h1 className="text-center font-medium text-lg">
+              🏗️ NOTICE: This line is still under construction/planned by the
+              government.
+            </h1>
+            <p className="text-center text-muted-foreground text-sm italic">
+              This is my personal hope rate for this line, and it may differ
+              from the actual experience once it's completed and I have tried
+              it.
+            </p>
+          </section>
+          <section className="flex flex-col rounded-xs border bg-accent/50 p-4 px-5 dark:bg-accent/30">
+            <p className="font-medium text-lg">Personal Hope Rate</p>
+            <span className="inline-flex items-center gap-2 font-bold text-3xl">
+              <Star className="text-amber-400" /> {props.personalHopeRate.score}
+              /10
+            </span>
+            <p className="text-muted-foreground italic">
+              "{props.personalHopeRate.comment}"
+            </p>
+          </section>
+        </div>
       ) : (
-        <></>
+        <section className="flex flex-col rounded-xs border bg-accent/50 p-4 px-5 dark:bg-accent/30">
+          <h1 className="text-center font-medium text-lg">
+            🚧 Coming soon; haven't tried this line yet.
+          </h1>
+        </section>
       )}
     </div>
   );
