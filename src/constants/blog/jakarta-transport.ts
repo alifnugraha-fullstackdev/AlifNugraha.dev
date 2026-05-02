@@ -148,7 +148,7 @@ export const mrtTransportation: JakartaTransportation = {
       name: "MRT North-South (Fase 1) Line",
       code: {
         color: "#E31E24",
-        short: "NS1",
+        short: "M",
       },
       coordinates: {
         type: "MultiLineString",
@@ -162,7 +162,7 @@ export const mrtTransportation: JakartaTransportation = {
       name: "MRT North-South (Fase 2A) Line",
       code: {
         color: "#E31E24",
-        short: "NS2A",
+        short: "M",
       },
       coordinates: {
         type: "LineString",
@@ -176,7 +176,7 @@ export const mrtTransportation: JakartaTransportation = {
       name: "MRT North-South (Fase 2B) Line",
       code: {
         color: "#E31E24",
-        short: "NS2B",
+        short: "M",
       },
       coordinates: {
         type: "LineString",
@@ -190,7 +190,7 @@ export const mrtTransportation: JakartaTransportation = {
       name: "MRT East-West (Fase 3) Line",
       code: {
         color: "#00B4D8",
-        short: "EW3",
+        short: "TB",
       },
       coordinates: {
         type: "MultiLineString",

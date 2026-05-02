@@ -122,7 +122,10 @@ export function JakartaTransportMapClient({
             }}
             data-lenis-prevent
           >
-            <div className="p-6" style={{ scrollBehavior: "auto" }}>
+            <div
+              className="w-full max-w-full p-6"
+              style={{ scrollBehavior: "auto" }}
+            >
               {content}
             </div>
           </aside>
