@@ -57,7 +57,6 @@ export const backendTools: ToolItem[] = [
 
 export const graphicTools: ToolItem[] = [
   { name: "Figma", Icon: icon.SiFigma, hex: icon.SiFigmaHex },
-  { name: "Canva", Icon: icon.SiCanva, hex: icon.SiCanvaHex },
   {
     name: "Alight Motion",
     Icon: FileVideoCamera,
