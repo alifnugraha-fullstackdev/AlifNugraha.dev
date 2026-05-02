@@ -38,7 +38,7 @@ const contentMap: Record<string, React.ReactNode> = Object.entries(
         currentLine={key}
         components={{
           TransportInformationTable,
-          default: Component,
+          default: Component as any,
         }}
       />
     );
