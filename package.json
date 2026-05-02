@@ -21,7 +21,7 @@
     "db:studio": "drizzle-kit studio",
     "db:check": "drizzle-kit check",
     "preinstall": "npx only-allow bun",
-    "postinstall": "bun db:migrate"
+    "postinstall": "bun db:migrate && bun scripts/patch-next-setup-node-env.ts"
   },
   "dependencies": {
     "@better-fetch/fetch": "^1.1.21",
