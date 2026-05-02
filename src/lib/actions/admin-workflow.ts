@@ -1,4 +1,5 @@
 "use server";
+import argon2 from "argon2";
 import type { NextRequest } from "next/server";
 
 export type AuthValidationResult =
@@ -35,9 +36,9 @@ export async function validateAdminWorkflowAuth(
     authHeader.replace("Bearer ", "").trim(),
   );
 
-  const hashVerified = await Bun.password.verify(
-    encodedPassword,
+  const hashVerified = await argon2.verify(
     workflowPasswordHash,
+    encodedPassword,
   );
 
   if (!hashVerified) {
