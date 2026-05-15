@@ -15,7 +15,7 @@ const linkCache = new LRUCache<
   ttl: 1000 * 60 * 60 * 24, // 1 day in milliseconds
 });
 
-export async function getLinkInfo(domain = "go.hexaa.sh", key: string) {
+export async function getLinkInfo(domain = "go.alifnugraha.my.id", key: string) {
   const cacheKey = `${domain}:${key}`;
 
   const cached = linkCache.get(cacheKey);

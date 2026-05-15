@@ -13,5 +13,5 @@ export function cloudflareLoader({ src, width, quality }: ImageLoaderProps) {
   if (quality) {
     params.push(`quality=${quality}`);
   }
-  return `https://files.hexaa.sh/${unoptimized ? "" : `cdn-cgi/image/${params.join(",")}/`}${normalizeSrc(src).replaceAll(".unoptimized", "")}`;
+  return `https://files.alifnugraha.my.id/${unoptimized ? "" : `cdn-cgi/image/${params.join(",")}/`}${normalizeSrc(src).replaceAll(".unoptimized", "")}`;
 }

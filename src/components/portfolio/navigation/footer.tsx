@@ -7,12 +7,29 @@ import { useThemeStore } from "@/lib/store/site-theme";
 import HCWebring from "@/components/portfolio/navigation/hackclub-webring";
 import { PlusSeparator } from "@/components/ui/plus-separator";
 
-import { socials, pages } from "@/constants/navigation/footer";
+import {
+  pages,
+  socials as defaultSocials,
+} from "@/constants/navigation/footer";
 import posthog from "posthog-js";
+import { Link as LinkIcon } from "lucide-react";
+import * as SimpleIcons from "@icons-pack/react-simple-icons";
 
-export default function Footer() {
+export default function Footer({
+  socials = defaultSocials,
+}: {
+  socials?: any[];
+}) {
   const { cycleMode, modes, currentModeIndex } = useThemeStore();
   const pathname = usePathname();
+
+  // Helper to resolve icon from string name
+  const resolveIcon = (name: string) => {
+    if (name && name in SimpleIcons) {
+      return SimpleIcons[name as keyof typeof SimpleIcons];
+    }
+    return LinkIcon;
+  };
 
   return (
     <footer>
@@ -30,7 +47,7 @@ export default function Footer() {
                 })
               }
             >
-              hex.
+              alif.
             </Link>
             <p className="text-muted-foreground text-sm">
               yet another portfolio site.{" "}
@@ -50,24 +67,27 @@ export default function Footer() {
               </button>
             </p>
             <div className="flex items-center gap-2.5">
-              {socials.map((social) => (
-                <Link
-                  key={social.name}
-                  href={social.href}
-                  aria-label={social.name}
-                  className="text-foreground-text transition-colors hover:text-primary"
-                  target="_blank"
-                  onClick={() =>
-                    posthog.capture("buttonClicked", {
-                      location: "footer",
-                      section: "socials",
-                      value: `${social.name.toLowerCase()}`,
-                    })
-                  }
-                >
-                  <social.icon size={24} />
-                </Link>
-              ))}
+              {socials.map((social) => {
+                const IconComp = social.icon || resolveIcon(social.iconName);
+                return (
+                  <Link
+                    key={social.name}
+                    href={social.href || social.url}
+                    aria-label={social.name}
+                    className="text-foreground-text transition-colors hover:text-primary"
+                    target="_blank"
+                    onClick={() =>
+                      posthog.capture("buttonClicked", {
+                        location: "footer",
+                        section: "socials",
+                        value: `${social.name.toLowerCase()}`,
+                      })
+                    }
+                  >
+                    <IconComp size={24} />
+                  </Link>
+                );
+              })}
             </div>
           </div>
           <div className="flex flex-col gap-4">
@@ -144,38 +164,7 @@ export default function Footer() {
 
         <div className="inner relative flex items-center justify-between border-x p-4">
           <p className="max-w-[60%] text-2xs text-muted-foreground leading-3">
-            This website is available on{" "}
-            <Link
-              href="https://github.com/hexaaagon/hexaa.sh"
-              className="underline transition-colors hover:text-primary"
-              onClick={() =>
-                posthog.capture("buttonClicked", {
-                  location: "footer",
-                  section: "github",
-                  value: "repository",
-                })
-              }
-            >
-              GitHub
-            </Link>{" "}
-            {process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA && (
-              <>
-                <Link
-                  href={`https://github.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}/commit/${process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA}`}
-                  className="underline transition-colors hover:text-primary"
-                  onClick={() =>
-                    posthog.capture("buttonClicked", {
-                      location: "footer",
-                      section: "github",
-                      value: "commit",
-                    })
-                  }
-                >
-                  ({process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(0, 7)})
-                </Link>{" "}
-              </>
-            )}
-            as open-source.
+            &copy; {new Date().getFullYear()} Alif Nugraha. All rights reserved.
           </p>
           <div className="flex">
             {pathname === "/" ? (

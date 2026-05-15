@@ -12,7 +12,7 @@ export default function LabsPage() {
       <section className="flex h-screen max-h-208 flex-col items-center justify-center">
         <span className="relative text-center">
           <h1 className="font-bold text-5xl sm:text-7xl">
-            Hexaa's <b className="font-montreal">La</b>
+            Alif's <b className="font-montreal">La</b>
             <b className="font-serif">bs</b>
           </h1>
           <span className="absolute right-0 bottom-0 left-0 z-20 h-12 w-full bg-linear-to-b from-transparent to-background/70"></span>
@@ -24,7 +24,7 @@ export default function LabsPage() {
             <Star8 className="-top-4 -left-4 absolute z-30" size={32} />
             <Star8 className="-bottom-3 -right-3 absolute z-30" size={24} />
           </span>{" "}
-          of Hexaa’s UI compounds.
+          of Alif’s UI compounds.
         </span>
         <div className="mt-8 flex flex-col gap-1 sm:flex-row sm:gap-3">
           <Button size="lg" variant="link" asChild>
@@ -40,7 +40,7 @@ export default function LabsPage() {
           <div className="relative w-full overflow-clip px-6 py-8">
             <div className="absolute top-0 mx-auto h-12 w-2/3 rounded-2xl bg-primary blur-[18rem]" />
             <header className="font-normal leading-tight">
-              <ScrollText text="Welcome to Hexaa's Labs, a curated collection of my personal experiments and UI compounds. Here, I explore innovative designs and functionalities that push the boundaries of user experience. Dive in to discover unique components that reflect my passion for creativity and technology." />
+              <ScrollText text="Welcome to Alif's Labs, a curated collection of my personal experiments and UI compounds. Here, I explore innovative designs and functionalities that push the boundaries of user experience. Dive in to discover unique components that reflect my passion for creativity and technology." />
             </header>
           </div>
           <PlusSeparator position={["top-left", "top-right"]} />
@@ -66,7 +66,7 @@ export default function LabsPage() {
               .
             </h2>
             <p className="mx-auto max-w-2xl text-xl">
-              Explore Hexaa's Labs to find innovative UI compounds that can
+              Explore Alif's Labs to find innovative UI compounds that can
               elevate your projects.
             </p>
           </div>

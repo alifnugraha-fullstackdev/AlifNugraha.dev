@@ -7,14 +7,14 @@ export function createMetadataBlog(override: Metadata): Metadata {
     openGraph: {
       title: override.title ?? undefined,
       description: override.description ?? undefined,
-      url: "https://hexaa.sh",
+      url: "https://alifnugraha.my.id",
       images: "/banner.png",
-      siteName: "hexaa's blog.",
+      siteName: "Alif Nugraha's blog.",
       ...override.openGraph,
     },
     twitter: {
       card: "summary_large_image",
-      creator: "@Scoooolzs",
+      creator: "@alifnugraha",
       title: override.title ?? undefined,
       description: override.description ?? undefined,
       images: "/banner.png",
@@ -24,8 +24,8 @@ export function createMetadataBlog(override: Metadata): Metadata {
       types: {
         "application/rss+xml": [
           {
-            title: "Hexaa's Blog",
-            url: "https://hexaa.sh/blog/rss.xml",
+            title: "Alif Nugraha's Blog",
+            url: "https://alifnugraha.my.id/blog/rss.xml",
           },
         ],
       },
@@ -40,13 +40,13 @@ export function createMetadataLabs(override: Metadata): Metadata {
     openGraph: {
       title: override.title ?? undefined,
       description: override.description ?? undefined,
-      url: "https://hexaa.sh/labs",
-      siteName: "hexaa's labs.",
+      url: "https://alifnugraha.my.id/labs",
+      siteName: "Alif Nugraha's labs.",
       ...override.openGraph,
     },
     twitter: {
       card: "summary_large_image",
-      creator: "@Scoooolzs",
+      creator: "@alifnugraha",
       title: override.title ?? undefined,
       description: override.description ?? undefined,
       ...override.twitter,

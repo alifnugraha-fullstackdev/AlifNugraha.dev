@@ -24,7 +24,15 @@ const backgroundImageVariants = cva("", {
   },
 });
 
-export default function HeroSection() {
+export default function HeroSection({
+  heroName,
+  heroSubtitle,
+  heroQuote,
+}: {
+  heroName?: string;
+  heroSubtitle?: string;
+  heroQuote?: string;
+}) {
   const { themes, currentThemeIndex, cycleTheme } = useThemeStore();
   const currentTheme = themes[currentThemeIndex];
 
@@ -38,18 +46,17 @@ export default function HeroSection() {
       >
         <span className="flex flex-col *:transition-all lg:pb-64">
           <h1 className="font-medium font-montreal text-3xl sm:text-4xl lg:text-[2.5rem] lg:leading-14">
-            hey, i&apos;m hexaa 👋
+            {heroName || "hey, i'm Alif Nugraha 👋"}
           </h1>
           <p className="max-w-[450px] text-xs leading-4 sm:text-sm lg:text-base lg:leading-5">
-            a self-taught software engineer with a strong foundation in
-            full-stack development, driven by a passion for building impactful
-            solutions.
+            {heroSubtitle ||
+              "a self-taught software engineer with a strong foundation in full-stack development, driven by a passion for building impactful solutions."}
           </p>
         </span>
         <span className="flex w-full justify-center md:w-auto md:justify-end">
           <p className="w-full max-w-[350px] text-center font-montreal-mono text-muted-foreground text-xs sm:text-sm md:text-base lg:w-auto lg:pt-52 lg:text-end">
-            &quot;a journey that began as a hobby and evolved into a deep
-            commitment to technology and problem-solving.&quot;
+            {heroQuote ||
+              '"a journey that began as a hobby and evolved into a deep commitment to technology and problem-solving."'}
           </p>
         </span>
       </div>

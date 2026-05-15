@@ -19,7 +19,7 @@ export default function Page() {
       </header>
       <div className="flex w-2/3 items-center justify-center pb-[30rem]">
         <Accordions type="single" className="m-auto w-full">
-          <Accordion title="why did hexaa made this lmfao">
+          <Accordion title="why did i made this lmfao">
             idk im bored send help pls
           </Accordion>
           <Accordion title="ts is so pointless ngl">then dont use it</Accordion>

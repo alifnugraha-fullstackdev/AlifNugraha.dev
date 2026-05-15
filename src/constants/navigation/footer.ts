@@ -4,22 +4,22 @@ import { AtSign } from "lucide-react";
 export const socials = [
   {
     name: "Email",
-    href: "mailto:me@hexagonn.my.id",
+    href: "mailto:alifnugraha@gmail.com",
     icon: AtSign,
   },
   {
     name: "GitHub",
-    href: "https://github.com/hexaaagon",
+    href: "https://github.com/alifnugraha",
     icon: SiGithub,
   },
   {
     name: "X (Twitter)",
-    href: "https://twitter.com/Scoooolzs",
+    href: "https://twitter.com/alifnugraha",
     icon: SiX,
   },
   {
     name: "Instagram",
-    href: "https://www.instagram.com/hexaaheks",
+    href: "https://www.instagram.com/alifnugraha",
     icon: SiInstagram,
   },
 ];

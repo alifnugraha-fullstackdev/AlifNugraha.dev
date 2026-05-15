@@ -5,7 +5,20 @@ import { projectsData } from "@/constants/portfolio/projects";
 import Link from "next/link";
 import { CloudflareImage } from "@/components/image";
 
-export default function ProjectSection() {
+import { Badge } from "@/components/ui/badge";
+
+export default function ProjectSection({ projects = [] }: { projects?: any[] }) {
+  // Map DB schema to ProjectItem interface for ProjectCard
+  const mappedProjects = (projects.length > 0 ? projects : projectsData).map((p) => ({
+    title: p.title,
+    description: p.description,
+    imageId: p.imageUrl || p.imageId, // DB vs Constant
+    badge: (p.badges || []).map((b: string) => <Badge key={b}>{b}</Badge>),
+    link: p.liveUrl || p.link,
+    repo: p.repoUrl || p.repo,
+    unmaintained: p.unmaintained,
+  }));
+
   return (
     <main className="w-full border-separator/10 border-t">
       <div className="inner relative flex border-separator/10 border-x">
@@ -23,14 +36,12 @@ export default function ProjectSection() {
             <div className="size-8 border-separator/10 border-b border-l sm:size-14"></div>
           </div>
           <div className="group relative flex flex-col justify-center gap-4 overflow-hidden px-5 py-8 sm:px-10 md:px-18">
-            <CloudflareImage
-              src="/br-dither-gradient.png"
+            <img
+              src="/project_fallback_bg.png"
               alt="Dither"
-              category="assets"
               height={400}
               width={1000}
               className="-z-10 absolute top-0 left-0 h-full w-full object-cover object-right opacity-30 invert dark:invert-0"
-              fetchPriority="low"
             />
             <h2 className="bg-linear-to-b from-foreground to-foreground/50 bg-clip-text font-montreal font-semibold text-transparent text-xl sm:text-2xl lg:text-3xl">
               the projects i've built
@@ -61,7 +72,7 @@ export default function ProjectSection() {
       </div>
       <div className="inner relative border-separator/10 border-x p-2">
         <section className="relative grid grid-cols-1 gap-2 md:grid-cols-2">
-          {projectsData.slice(0, 4).map((project, idx) => (
+          {mappedProjects.slice(0, 4).map((project, idx) => (
             <ProjectCard
               key={project.title}
               project={project}

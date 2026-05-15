@@ -4,18 +4,18 @@ import { NextResponse } from "next/server";
 
 export const revalidate = false;
 
-const baseUrl = "https://hexaa.sh";
+const baseUrl = "https://alifnugraha.my.id";
 
 export function GET() {
   const feed = new Feed({
-    title: "Hexaa's Blog",
+    title: "Alif Nugraha's Blog",
     id: `${baseUrl}/blog`,
     link: `${baseUrl}/blog`,
     language: "en",
 
     image: `${baseUrl}/banner.png`,
     favicon: `${baseUrl}/icon.png`,
-    copyright: "© 2025, Hexaa. Licensed under CC BY-NC 4.0",
+    copyright: "© 2025, Alif Nugraha. Licensed under CC BY-NC 4.0",
   });
 
   for (const page of blog.getPages().sort((a, b) => {

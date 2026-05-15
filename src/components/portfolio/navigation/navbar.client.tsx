@@ -268,7 +268,7 @@ export default function NavbarClient({ tree }: NavbarClientProps) {
               href="/"
               className="font-medium font-mono text-xs sm:text-base"
             >
-              hexaa
+              alif.
             </Link>
             {matchPath(pathname, backItems) && (
               <Link href="/blog" className="flex h-4 items-center">

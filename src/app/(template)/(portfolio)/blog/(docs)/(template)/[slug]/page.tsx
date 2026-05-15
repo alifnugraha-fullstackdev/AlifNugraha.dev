@@ -105,7 +105,7 @@ export async function generateMetadata(
 
   return createMetadataBlog({
     title: page.data.title,
-    description: page.data.description ?? "Another hexaa's blog post.",
+    description: page.data.description ?? "Another blog post by Alif Nugraha.",
     openGraph: {
       url: `/blog/${page.slugs.join("/")}`,
       images: [image],

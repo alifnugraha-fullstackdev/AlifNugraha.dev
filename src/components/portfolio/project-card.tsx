@@ -52,16 +52,18 @@ export function ProjectCard({
           classNames?.imageWrapper,
         )}
       >
-        <CloudflareImage
-          src={project.imageId}
+        <img
+          src={project.imageId || "/project_fallback_bg.png"}
           alt={project.title}
           height={628}
           width={1024}
+          onError={(e) => {
+            e.currentTarget.src = "/project_fallback_bg.png";
+          }}
           className={cn(
             "absolute top-0 right-0 bottom-0 left-0 aspect-auto h-full w-full object-cover transition-transform duration-300 group-hover:scale-105",
             classNames?.image,
           )}
-          category="projects"
         />
       </div>
 

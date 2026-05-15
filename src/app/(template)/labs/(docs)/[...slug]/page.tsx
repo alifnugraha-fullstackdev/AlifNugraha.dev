@@ -77,7 +77,7 @@ export async function generateMetadata(
 
   return createMetadataLabs({
     title: page.data.title,
-    description: page.data.description ?? "Another hexaa's lab component.",
+    description: page.data.description ?? "Another lab component by Alif Nugraha.",
     openGraph: {
       url: `/labs/${page.slugs.join("/")}`,
       images: [image],

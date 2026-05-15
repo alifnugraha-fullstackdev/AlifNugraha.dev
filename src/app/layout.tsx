@@ -57,8 +57,8 @@ const neueMontrealMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Hexaa",
-  description: "just a random guy",
+  title: "Alif Nugraha",
+  description: "Alif Nugraha's personal portfolio",
 };
 
 export default function RootLayout({

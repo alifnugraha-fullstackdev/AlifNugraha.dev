@@ -59,7 +59,7 @@ import type {
 } from "@/lib/db/schema/guestbook";
 import { EventEmitter } from "@/lib/helpers";
 
-// hexaa's user ID
+// author's user ID
 // yeah ik it's hardcoded, i'm lazy asf
 const authorUserId = "euvPPRy7QJWB9UlcLz8gqDVav4byXGYg";
 
@@ -174,10 +174,9 @@ export default function GuestbookPage() {
             <div className="group relative flex h-48 overflow-hidden bg-background/50">
               <div className="absolute top-4 left-4 size-16 bg-foreground blur-[10rem] transition-all group-hover:blur-[7rem]"></div>
               <div className="absolute right-4 bottom-4 size-16 bg-foreground blur-[7rem] transition-all group-hover:blur-[6rem]"></div>
-              <CloudflareImage
-                src="/typography/hexaas-guestbook.webp.unoptimized"
-                category="assets"
-                alt="Hexaas Guestbook"
+              <img
+                src="/guestbook_typography.png"
+                alt="Guestbook"
                 width={1080}
                 height={1080}
                 className="aspect-auto h-full w-full object-cover opacity-70 transition group-hover:opacity-100 dark:opacity-80 dark:invert group-hover:dark:opacity-100"

@@ -67,20 +67,20 @@ export const contacts: (InfoCard & {
 })[] = [
   {
     name: "hack_club",
-    contact: "Hexaa",
+    contact: "Alif Nugraha",
     icon: SiHackclub,
-    link: "https://hackclub.enterprise.slack.com/team/U082WTQLCVA",
+    link: "https://hackclub.com",
   },
   {
     name: "email",
-    contact: "me@hexagonn.my.id",
+    contact: "alifnugraha@gmail.com",
     icon: Mail,
-    link: "mailto:me@hexagonn.my.id",
+    link: "mailto:alifnugraha@gmail.com",
   },
   {
     name: "discord",
-    contact: "@scoooolzs",
+    contact: "@alifnugraha",
     icon: SiDiscord,
-    link: "https://discord.com/users/465454937267240962",
+    link: "https://discord.com",
   },
 ];

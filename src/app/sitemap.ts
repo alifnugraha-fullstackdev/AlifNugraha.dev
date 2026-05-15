@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 export const baseUrl = (path: string) =>
-  `${process.env.BETTER_AUTH_URL || "https://hexaa.sh"}${path}`;
+  `${process.env.BETTER_AUTH_URL || "https://alifnugraha.my.id"}${path}`;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

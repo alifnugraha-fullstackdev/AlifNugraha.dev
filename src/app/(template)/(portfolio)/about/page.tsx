@@ -2,16 +2,45 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { AnimatedBackground } from "@/components/portfolio/animated-background";
 import { CompetitionCard } from "@/components/portfolio/competition-card";
-import SocialBento from "@/components/portfolio/social-bento";
 import { PlusSeparator } from "@/components/ui/plus-separator";
-import { contacts, techStacks } from "@/constants/portfolio/about";
-import { competitions } from "@/constants/portfolio/competitions";
-import { getGithubContributions } from "@/lib/portfolio/social";
+import { techStacks } from "@/constants/portfolio/about";
+import { getCachedCompetitions, getCachedContacts } from "@/lib/data";
+import { Link as LinkIcon } from "lucide-react";
 import SoonSection from "../soon";
 import { HeaderBanner, SideNoise } from "./banner.client";
 
+import * as SimpleIcons from "@icons-pack/react-simple-icons";
+import * as LucideIcons from "lucide-react";
+
+// Helper to resolve icon from string name
+const resolveIcon = (name: string) => {
+  if (name && (SimpleIcons as any)[name]) {
+    return (SimpleIcons as any)[name];
+  }
+  if (name && (LucideIcons as any)[name]) {
+    return (LucideIcons as any)[name];
+  }
+  return LinkIcon;
+};
+
 export default async function AboutSection() {
-  const githubContributions = await getGithubContributions();
+  const dbCompetitions = await getCachedCompetitions();
+  const dbContacts = await getCachedContacts();
+  
+  const mappedCompetitions = dbCompetitions.map((c: any) => ({
+    ...c,
+    links: c.links?.map((l: any) => ({
+      ...l,
+      icon: <LinkIcon size={14} />, // Simplified icon handling for DB
+    })),
+  }));
+  
+  const mappedContacts = dbContacts.map((c: any) => ({
+    name: c.platform || c.name,
+    contact: c.contactValue || c.contact,
+    link: c.url || c.link,
+    icon: resolveIcon(c.iconName),
+  }));
   return (
     <main>
       <section className="w-full border-separator/10 border-b">
@@ -29,7 +58,7 @@ export default async function AboutSection() {
           </div>
           <div className="md:mr-8 xl:max-w-3/5">
             <span className="relative">
-              <h4 className="font-medium text-xl">hey there, hexaa's here.</h4>
+              <h4 className="font-medium text-xl">hey there, Alif Nugraha's here.</h4>
               <div className="absolute bottom-0 h-4 w-full bg-linear-to-b from-transparent to-background/60" />
             </span>
             <p className="text-sm leading-relaxed md:text-base">
@@ -63,7 +92,7 @@ export default async function AboutSection() {
               <div className="absolute bottom-0 h-8 w-full bg-linear-to-b from-transparent to-background/40" />
             </span>
             <ul className="mb-4 ml-8 max-w-full divide-y divide-dashed border-l">
-              {competitions.map((competition, idx) => (
+              {mappedCompetitions.map((competition, idx) => (
                 <CompetitionCard
                   key={idx}
                   title={competition.title}
@@ -205,7 +234,7 @@ export default async function AboutSection() {
               }}
               enableHover
             >
-              {contacts.map((item, index) => (
+              {mappedContacts.map((item, index) => (
                 <Link
                   className="block w-full rounded-full border-[0.5px] border-separator/20 border-dashed px-5 pt-2.5 pb-1.5 md:w-2/5"
                   data-id={`contact-card-${index}`}
@@ -227,11 +256,6 @@ export default async function AboutSection() {
               <div className="pointer-events-none absolute right-0 bottom-0 h-14 w-1/8 min-w-18 bg-muted-foreground blur-[250px]"></div>
             </div>
           </div>
-        </div>
-      </section>
-      <section className="w-full">
-        <div className="inner relative flex gap-2 border-separator/10 border-x px-2 py-3">
-          <SocialBento githubContributions={githubContributions ?? undefined} />
         </div>
       </section>
     </main>

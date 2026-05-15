@@ -33,7 +33,7 @@ declare global {
       // Dub.co
       DUB_API_KEY: string;
 
-      // Hexaa's Thingy
+      // Alif's Thingy
       WORKFLOW_PASSWORD_HASH: string;
 
       // Last.fm API

@@ -1081,7 +1081,7 @@ export default function SocialBento({
       </section>
       <section className="h-38 w-full gap-2 lg:h-full">
         <Link
-          href="https://github.com/hexaaagon"
+          href="https://github.com/alifnugraha"
           target="_blank"
           className="group relative flex h-full w-full flex-col justify-around overflow-clip rounded-2xl border bg-muted/50 p-4 px-8 text-foreground/70 transition duration-300 ease-out hover:text-foreground/90 lg:h-full dark:bg-muted/20"
         >

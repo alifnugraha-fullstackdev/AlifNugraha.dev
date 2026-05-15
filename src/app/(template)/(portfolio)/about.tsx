@@ -15,84 +15,89 @@ import { cn } from "@/lib/utils";
 
 const SkillsSection = dynamic(() => import("./about-skills"), { ssr: false });
 
-export default function AboutSection() {
+export default function AboutSection({
+  aboutBio,
+  birthDate,
+  aboutHelloImage,
+}: {
+  aboutBio?: string;
+  birthDate?: string;
+  aboutHelloImage?: string;
+}) {
   const wakatimeStats = useSWR("wakatime", wakaTimeData);
-  const [age, setAge] = useState(ageCalc());
+  const bd = birthDate ? new Date(birthDate) : new Date("2010-08-02T00:00:00+07:00");
+  const [age, setAge] = useState(ageCalc(bd));
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setAge(ageCalc());
+      setAge(ageCalc(bd));
     }, 75);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [bd]);
 
   return (
     <>
       <main className="w-full border-separator/10 border-t">
         <div className="inner relative flex h-full flex-col border-separator/10 border-x px-2 text-sm sm:px-4 sm:text-base xl:flex-row xl:justify-between xl:px-8">
           <div className="py-24 xl:max-w-7/11">
-            <CloudflareImage
-              category="assets"
-              src="/typography/hello.webp"
+            <img
+              src={aboutHelloImage || "/hello_typography.png"}
               alt="hello."
               height={60}
-              width={120}
-              className="pointer-events-none -mt-5 mb-4 aspect-auto select-none [image-rendering:pixelated] dark:invert"
-              fetchPriority="high"
+              className="pointer-events-none -mt-5 mb-4 aspect-auto h-[60px] object-contain select-none [image-rendering:pixelated] dark:invert"
+              // Removed fetchPriority for generic img
             />
-            <p>
-              i'm hexaa, but my real name is bagas. i am a{" "}
-              <Tooltip>
-                <TooltipTrigger className="underline decoration-dashed">
-                  {Math.floor(age)}-year-old
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{age.toFixed(9)}</p>
-                </TooltipContent>
-              </Tooltip>{" "}
-              student and a self-taught software engineer. growing up, i spent a
-              lot of time playing with computers, and now i love building things
-              just with code. i am passionate about learning new technologies
-              and constantly improving my skills.
-            </p>
-            <br />
-            <p>
-              if you're curious, i started coding when i was 11. at the time, i
-              was bored of just playing minecraft every day, chatting with my
-              friends, sitting at the chair at all times. so i began exploring
-              discord bot templates. i wondered, "what if i could make one
-              myself?" and that's what inspired me to start coding. since then,
-              i've invested over{" "}
-              <Tooltip open={wakatimeStats.isLoading ? false : undefined}>
-                <TooltipTrigger
-                  className={cn(
-                    "cursor-pointer underline decoration-dashed",
-                    wakatimeStats.isLoading &&
-                      "animate-pulse rounded-md bg-accent text-accent",
-                  )}
-                  onClick={() => {
-                    window.open("https://wakatime.com/@hexaaagon", "_blank");
-                  }}
-                >
-                  {wakatimeStats.isLoading
-                    ? "xxxx"
-                    : (
-                        Math.floor(
-                          (wakatimeStats.data?.total_seconds || 0) / 60 / 60,
-                        ) / 1000
-                      ).toFixed(3)}{" "}
-                  hours
-                  <span className="sr-only">WakaTime profile</span>
-                </TooltipTrigger>
-                <TooltipContent className="text-center">
-                  <p>{wakatimeStats.data?.human_readable_total}</p>
-                  <p>Click to open my Wakatime Account</p>
-                </TooltipContent>
-              </Tooltip>{" "}
-              into coding, brainstorming, and even struggling through bugs that
-              seemed impossible to fix.
-            </p>
+            <div className="space-y-4">
+              {(
+                aboutBio ||
+                "My name is Alif Nugraha. I am a self-taught Software Engineer with a deep passion for building impactful digital solutions. (Currently {age} years old)\n\nif you're curious, i started coding when i was 11. at the time, i was bored of just playing minecraft every day, chatting with my friends, sitting at the chair at all times. so i began exploring discord bot templates. i wondered, \"what if i could make one myself?\" and that's what inspired me to start coding. since then, i've invested over {wakatime} hours into coding, brainstorming, and even struggling through bugs that seemed impossible to fix."
+              )
+                .split("\n")
+                .map((paragraph, pIdx) => (
+                  <p key={pIdx}>
+                    {paragraph.split(/({age}|{wakatime})/g).map((part, i) => {
+                      if (part === "{age}") {
+                        return (
+                          <Tooltip key={i}>
+                            <TooltipTrigger className="underline decoration-dashed">
+                              {Math.floor(age)}
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>{age.toFixed(9)}</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        );
+                      }
+                      if (part === "{wakatime}") {
+                        return (
+                          <Tooltip key={i} open={wakatimeStats.isLoading ? false : undefined}>
+                            <TooltipTrigger
+                              className={cn(
+                                "cursor-pointer underline decoration-dashed",
+                                wakatimeStats.isLoading && "animate-pulse rounded-md bg-accent text-accent"
+                              )}
+                              onClick={() => {
+                                window.open("https://wakatime.com/@alifnugraha", "_blank");
+                              }}
+                            >
+                              {wakatimeStats.isLoading
+                                ? "xxxx"
+                                : (Math.floor((wakatimeStats.data?.total_seconds || 0) / 60 / 60) / 1000).toFixed(3)}
+                              <span className="sr-only">WakaTime profile</span>
+                            </TooltipTrigger>
+                            <TooltipContent className="text-center">
+                              <p>{wakatimeStats.data?.human_readable_total}</p>
+                              <p>Click to open my Wakatime Account</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        );
+                      }
+                      return <span key={i}>{part}</span>;
+                    })}
+                  </p>
+                ))}
+            </div>
           </div>
           <div className="relative mx-auto mb-2 flex w-full max-w-sm items-center justify-center md:mb-6 lg:mb-12 xl:mb-0">
             <div className="flex flex-col justify-between rounded-xs border bg-muted/50 p-4 shadow-sm dark:bg-muted/20">
@@ -119,8 +124,8 @@ export default function AboutSection() {
   );
 }
 
-export function ageCalc() {
-  const birthDate = new Date("2010-08-02T00:00:00+07:00");
+export function ageCalc(customDate?: Date) {
+  const birthDate = customDate || new Date("2010-08-02T00:00:00+07:00");
   const now = new Date();
 
   const ageInMilliseconds = now.getTime() - birthDate.getTime();

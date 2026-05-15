@@ -29,14 +29,14 @@ function DubRedirectContent() {
   const description = searchParams.get("description");
   const image = searchParams.get("image");
 
-  const metaTitle = title || `go.hexaa.sh/${dubKey || ""}`;
+  const metaTitle = title || `go.alifnugraha.my.id/${dubKey || ""}`;
   const metaDescription =
     description || "You're being redirected to your destination...";
   const metaImage = image || "/static/images/og-image.png";
 
   // Update document metadata
   useEffect(() => {
-    if (!dubLink || !dubLink.startsWith("https://go.hexaa.sh/")) {
+    if (!dubLink || !dubLink.startsWith("https://go.alifnugraha.my.id/")) {
       window.location.href = "/";
       return;
     }

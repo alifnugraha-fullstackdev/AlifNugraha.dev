@@ -89,11 +89,11 @@ export async function generate({ path, title, description }: GenerateProps) {
       />
       <header tw="absolute top-0 left-0 w-full flex items-center justify-between px-8 pt-6">
         <section tw="bg-white text-black font-semibold text-[24px] inline-flex items-center px-1 gap-2 -py-6">
-          <p tw="tracking-[-0.09em]">hexaa's</p>
+          <p tw="tracking-[-0.09em]">alif's</p>
           <p tw="tracking-[-0.05em]">blog.</p>
         </section>
         <section tw="text-white font-[Geist_Mono]">
-          <p tw="text-[16px] opacity-70">hexaa.sh{path}</p>
+          <p tw="text-[16px] opacity-70">alifnugraha.my.id{path}</p>
         </section>
       </header>
 

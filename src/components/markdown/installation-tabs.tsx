@@ -3,7 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
 import { CodeBlock } from "@/components/code-block";
 
 export function ShadcnInstall({ path }: { path: string }) {
-  const url = `${process.env.BETTER_AUTH_URL || "https://hexaa.sh"}/labs/r/${path}.json`;
+  const url = `${process.env.BETTER_AUTH_URL || "https://alifnugraha.my.id"}/labs/r/${path}.json`;
   const tabs = [
     { name: "npm", value: "npm" },
     { name: "yarn", value: "yarn" },

@@ -14,7 +14,7 @@ export default function SoonSection() {
         <p className="mx-2 mt-1 max-w-2xl text-center text-muted-foreground text-xs sm:text-sm">
           but hey, at least there's a new project, it's called{" "}
           <Link href="/labs" className="underline">
-            Hexaa's Labs
+            Alif's Labs
           </Link>
           !
         </p>

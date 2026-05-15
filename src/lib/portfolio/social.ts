@@ -80,7 +80,7 @@ const contributionsCache = new LRUCache<string, number[]>({
   ttl: 60 * 60 * 1000, // 1 hour
 });
 
-export async function getGithubContributions(username = "hexaaagon") {
+export async function getGithubContributions(username = "alifnugraha") {
   const existing = contributionsCache.get(username);
   if (existing) return existing;
 
@@ -327,7 +327,7 @@ function makeDateRangeKey(username: string, from: string, to: string) {
 }
 
 export async function getGithubContributionsByDate(
-  username = "hexaaagon",
+  username = "alifnugraha",
   fromDate?: string,
   toDate?: string,
 ) {
@@ -434,7 +434,7 @@ export async function getGithubContributionsByDate(
 
 // Get contributions summary for a given calendar year (total contributions)
 export async function getGithubContributionsSummaryForYear(
-  username = "hexaaagon",
+  username = "alifnugraha",
   year?: number,
 ) {
   const y = year ?? new Date().getFullYear();

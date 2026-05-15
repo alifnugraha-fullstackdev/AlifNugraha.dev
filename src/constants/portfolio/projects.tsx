@@ -12,7 +12,7 @@ export interface ProjectItem {
   unmaintained?: boolean;
 }
 
-const url = process.env.BETTER_AUTH_URL || "https://hexaa.sh/";
+const url = process.env.BETTER_AUTH_URL || "https://alifnugraha.my.id/";
 export const projectsData: ProjectItem[] = [
   {
     title: "Hack Club Merch",
@@ -25,7 +25,7 @@ export const projectsData: ProjectItem[] = [
       <Badge key="hack-club">Hack Club</Badge>,
     ],
     link: `${url}/merch?utm_source=personal_website`,
-    repo: "https://github.com/hexaaagon/hackclub-merch",
+    repo: "https://github.com/alifnugraha/hackclub-merch",
   },
   {
     title: "Hack Club Hackography",
@@ -38,7 +38,7 @@ export const projectsData: ProjectItem[] = [
       <Badge key="hack-club">Hack Club</Badge>,
     ],
     link: `${url}/hackography?utm_source=personal_website`,
-    repo: `https://github.com/hexaaagon/hackclub-hackography`,
+    repo: `https://github.com/alifnugraha/hackclub-hackography`,
     unmaintained: true,
   },
   {
@@ -52,7 +52,7 @@ export const projectsData: ProjectItem[] = [
       <Badge key="hackatime">Hackatime</Badge>,
     ],
     link: `${url}/wackanel?utm_source=personal_website`,
-    repo: "https://github.com/hexaaagon/wackanel",
+    repo: "https://github.com/alifnugraha/wackanel",
     unmaintained: true,
   },
   {
@@ -65,7 +65,7 @@ export const projectsData: ProjectItem[] = [
       <Badge key="pastebin">Pastebin</Badge>,
     ],
     link: `${url}/pastebon?utm_source=personal_website`,
-    repo: "https://github.com/hexaaagon/pastebon",
+    repo: "https://github.com/alifnugraha/pastebon",
   },
   {
     title: "simple-chatbot",
@@ -77,7 +77,7 @@ export const projectsData: ProjectItem[] = [
       <Badge key="chatbot">Chatbot</Badge>,
     ],
     link: `${url}/simple-chatbot?utm_source=personal_website`,
-    repo: "https://github.com/hexaaagon/simple-chatbot",
+    repo: "https://github.com/alifnugraha/simple-chatbot",
   },
   {
     title: "Claisse",
@@ -90,7 +90,7 @@ export const projectsData: ProjectItem[] = [
       <Badge key="education">Education</Badge>,
     ],
     link: `${url}/claisse?utm_source=personal_website`,
-    repo: "https://github.com/hexaaagon/claisse",
+    repo: "https://github.com/alifnugraha/claisse",
     unmaintained: true,
   },
 ];

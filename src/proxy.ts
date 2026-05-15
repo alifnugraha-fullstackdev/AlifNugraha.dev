@@ -47,7 +47,7 @@ export async function proxy(request: NextRequest) {
 
   try {
     const dubResponse = await betterFetch(
-      `https://api.dub.co/links/info?domain=go.hexaa.sh&key=${pathname}`,
+      `https://api.dub.co/links/info?domain=go.alifnugraha.my.id&key=${pathname}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.DUB_API_KEY}`,

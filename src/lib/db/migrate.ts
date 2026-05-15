@@ -1,5 +1,5 @@
-import { migrate } from "drizzle-orm/neon-http/migrator";
-import { db } from "@/lib/db/index";
+import { migrate } from "drizzle-orm/postgres-js/migrator";
+import { db, sql } from "@/lib/db/index";
 
 const runMigrate = async () => {
   if (!process.env.DATABASE_URL) {
@@ -15,11 +15,15 @@ const runMigrate = async () => {
   const end = Date.now();
 
   console.log("✅ Migrations completed in", end - start, "ms");
+
+  // Close the connection after migration
+  await sql.end();
   process.exit(0);
 };
 
-runMigrate().catch((err) => {
+runMigrate().catch(async (err) => {
   console.error("❌ Migration failed");
   console.error(err);
+  await sql.end();
   process.exit(1);
 });
