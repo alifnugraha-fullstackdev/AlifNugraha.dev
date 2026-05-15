@@ -1,17 +1,22 @@
 <div align="center">
-  <h1>personal-web / hexaa.sh</h1>
-  <p>🔥 A personal website built from scratch using Next.js, TypeScript, Tailwind CSS, SWR, Drizzle, and Neon Postgres</p>
+  <h1>Alif Nugraha Portfolio</h1>
+
+  <p>
+    An open-source portfolio website built with modern web technologies.
+  </p>
+  
+  <p>
+    Currently used as my personal corner on the internet to showcase my projects, skills, and everything else I'm working on!
+  </p>
 </div>
 
-<br />
+## ✨ Features
 
-[![Hexaa.sh screenshot](./.github/assets/screenshot.png)](https://hexaa.sh/)
-
-<div align="center">
-  <a href="https://hexaa.sh" target="_blank">hexaa.sh</a>
-  &nbsp;
-  <a href="https://redesign.hexaa.sh" target="_blank">redesign.hexaa.sh (development)</a>
-</div>
+- ⚛️ **Next.js 14** (App Router)
+- 🎨 **Tailwind CSS** + **Framer Motion**
+- 🌓 **Dark/Light Mode** support
+- 🗄️ **Supabase** integrated CMS
+- 💅 **Radix UI** components
 
 ## Introduction
 
@@ -45,4 +50,4 @@ If you find this website helpful, please consider leaving a rating. 😎👍🏻
   <a href="https://hackclub.com">
     <img src="https://assets.hackclub.com/flag-standalone.svg" alt="Hack Club Logo" height="48"></img>
   </a>
-</div>
+</div># AlifNugraha.dev
