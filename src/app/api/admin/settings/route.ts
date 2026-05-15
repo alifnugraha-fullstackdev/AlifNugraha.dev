@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getSiteSettings, updateSiteSettings } from "@/lib/actions/admin";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const authed = await isAdminAuthenticated();
   if (!authed) {

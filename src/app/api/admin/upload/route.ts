@@ -3,6 +3,8 @@ import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { supabaseAdmin, STORAGE_BUCKET, getPublicUrl } from "@/lib/supabase";
 import { nanoid } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(request: Request) {
   const authed = await isAdminAuthenticated();
   if (!authed) {
