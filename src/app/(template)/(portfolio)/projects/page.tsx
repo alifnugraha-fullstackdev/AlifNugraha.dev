@@ -13,11 +13,11 @@ export default async function ProjectsPage() {
   const mappedProjects = dbProjects.map((p) => ({
     title: p.title,
     description: p.description,
-    imageId: p.imageUrl || p.imageId,
+    imageId: p.imageUrl || "",
     badge: (p.badges || []).map((b: string) => <Badge key={b}>{b}</Badge>),
-    link: p.liveUrl || p.link,
-    repo: p.repoUrl || p.repo,
-    unmaintained: p.unmaintained,
+    link: p.liveUrl || "",
+    repo: p.repoUrl || "",
+    unmaintained: p.unmaintained ?? false,
   }));
 
   return (
