@@ -20,8 +20,7 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "db:check": "drizzle-kit check",
-    "preinstall": "npx only-allow bun",
-    "postinstall": "bun db:migrate"
+    "preinstall": "npx only-allow bun"
   },
   "dependencies": {
     "@better-fetch/fetch": "^1.1.18",
