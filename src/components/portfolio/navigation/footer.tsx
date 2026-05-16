@@ -68,7 +68,10 @@ export default function Footer({
             </p>
             <div className="flex items-center gap-2.5">
               {socials.map((social) => {
-                const IconComp = social.icon || resolveIcon(social.iconName);
+                const hasCustomIcon = !!social.iconUrl;
+                const IconComp = !hasCustomIcon
+                  ? social.icon || resolveIcon(social.iconName)
+                  : null;
                 return (
                   <Link
                     key={social.name}
@@ -84,7 +87,17 @@ export default function Footer({
                       })
                     }
                   >
-                    <IconComp size={24} />
+                    {hasCustomIcon ? (
+                      <img
+                        src={social.iconUrl}
+                        alt={social.name}
+                        width={24}
+                        height={24}
+                        className="h-6 w-6 object-contain dark:invert"
+                      />
+                    ) : (
+                      IconComp && <IconComp size={24} />
+                    )}
                   </Link>
                 );
               })}

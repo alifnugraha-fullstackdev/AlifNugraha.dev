@@ -11,6 +11,8 @@ import {
 } from "@/lib/db/schema/admin";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { revalidatePath, revalidateTag } from "next/cache";
+import { supabaseAdmin, STORAGE_BUCKET } from "@/lib/supabase";
+import { nanoid } from "@/lib/utils";
 
 // ─── Auth Guard ───
 async function requireAdmin() {
@@ -198,6 +200,48 @@ export async function deleteCompetition(id: string) {
 }
 
 // ════════════════════════════════════════════════════
+// ICON UPLOAD
+// ════════════════════════════════════════════════════
+
+export async function uploadIcon(formData: FormData): Promise<string> {
+  await requireAdmin();
+  const file = formData.get("file") as File | null;
+  if (!file) throw new Error("No file provided");
+
+  // Validate file type
+  const allowedTypes = ["image/svg+xml", "image/png", "image/webp", "image/jpeg", "image/x-icon", "image/vnd.microsoft.icon"];
+  if (!allowedTypes.includes(file.type)) {
+    throw new Error("Invalid file type. Allowed: SVG, PNG, WEBP, JPEG, ICO");
+  }
+
+  // Validate file size (max 500KB)
+  if (file.size > 500 * 1024) {
+    throw new Error("File too large. Maximum 500KB");
+  }
+
+  const ext = file.name.split(".").pop() || "png";
+  const fileName = `icons/${nanoid(12)}.${ext}`;
+
+  const arrayBuffer = await file.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+
+  const { error } = await supabaseAdmin.storage
+    .from(STORAGE_BUCKET)
+    .upload(fileName, buffer, {
+      contentType: file.type,
+      upsert: true,
+    });
+
+  if (error) throw new Error(`Upload failed: ${error.message}`);
+
+  const { data } = supabaseAdmin.storage
+    .from(STORAGE_BUCKET)
+    .getPublicUrl(fileName);
+
+  return data.publicUrl;
+}
+
+// ════════════════════════════════════════════════════
 // SOCIAL LINKS
 // ════════════════════════════════════════════════════
 
@@ -212,6 +256,7 @@ export async function createSocialLink(data: {
   platform: string;
   url: string;
   iconName: string;
+  iconUrl?: string;
   displayName?: string;
 }) {
   await requireAdmin();
@@ -235,6 +280,7 @@ export async function updateSocialLink(
     platform: string;
     url: string;
     iconName: string;
+    iconUrl: string | null;
     displayName: string;
     sortOrder: number;
   }>,
@@ -275,6 +321,7 @@ export async function createContact(data: {
   contactValue: string;
   url: string;
   iconName: string;
+  iconUrl?: string;
 }) {
   await requireAdmin();
   const existing = await getContacts();
@@ -298,6 +345,7 @@ export async function updateContact(
     contactValue: string;
     url: string;
     iconName: string;
+    iconUrl: string | null;
     sortOrder: number;
   }>,
 ) {

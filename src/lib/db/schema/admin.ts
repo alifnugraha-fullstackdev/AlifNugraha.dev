@@ -65,6 +65,7 @@ export const socialLinksTable = pgTable("social_links", {
   platform: text("platform").notNull(),
   url: text("url").notNull(),
   iconName: text("icon_name").notNull(),
+  iconUrl: text("icon_url"),
   displayName: text("display_name"),
   sortOrder: integer("sort_order").default(0),
   createdAt: timestamp("created_at")
@@ -85,6 +86,7 @@ export const contactsTable = pgTable("contacts", {
   contactValue: text("contact_value").notNull(),
   url: text("url").notNull(),
   iconName: text("icon_name").notNull(),
+  iconUrl: text("icon_url"),
   sortOrder: integer("sort_order").default(0),
   createdAt: timestamp("created_at")
     .notNull()

@@ -16,6 +16,7 @@ export default async function RootTemplate({
     name: s.platform || s.name,
     href: s.url || s.href,
     iconName: s.iconName || (s.icon?.name) || "Link",
+    iconUrl: s.iconUrl || null,
   }));
 
   return (

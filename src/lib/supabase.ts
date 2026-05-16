@@ -24,7 +24,7 @@ export const supabaseAdmin = new Proxy({} as ReturnType<typeof createClient>, {
   },
 });
 
-export const STORAGE_BUCKET = "portfolio";
+export const STORAGE_BUCKET = "MyPort";
 
 export function getPublicUrl(path: string): string {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
