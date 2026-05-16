@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import {
   LayoutDashboard,
   Settings,
@@ -10,6 +11,8 @@ import {
   Share2,
   LogOut,
   ChevronLeft,
+  Menu,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -24,23 +27,50 @@ const navItems = [
 export function AdminSidebar() {
   const pathname = usePathname();
   const router = useRouter();
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
 
   const handleLogout = async () => {
     await fetch("/api/admin/logout", { method: "POST" });
     router.push("/admin-login");
   };
 
-  return (
-    <aside className="sticky top-0 flex h-screen w-64 flex-col border-r border-border/50 bg-card/50 backdrop-blur-xl">
+  const sidebarContent = (
+    <>
       {/* Header */}
-      <div className="flex items-center gap-3 border-b border-border/50 px-6 py-5">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 font-bold text-sm text-white">
-          A
+      <div className="flex items-center justify-between border-b border-border/50 px-6 py-5">
+        <div className="flex items-center gap-3">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 font-bold text-sm text-white">
+            A
+          </div>
+          <div>
+            <h2 className="font-semibold text-sm">Admin Panel</h2>
+            <p className="text-muted-foreground text-xs">Portfolio Manager</p>
+          </div>
         </div>
-        <div>
-          <h2 className="font-semibold text-sm">Admin Panel</h2>
-          <p className="text-muted-foreground text-xs">Portfolio Manager</p>
-        </div>
+        {/* Close button - mobile only */}
+        <button
+          onClick={() => setMobileOpen(false)}
+          className="rounded-lg p-1.5 text-muted-foreground transition-all hover:bg-muted/50 hover:text-foreground lg:hidden"
+        >
+          <X className="h-5 w-5" />
+        </button>
       </div>
 
       {/* Navigation */}
@@ -85,6 +115,49 @@ export function AdminSidebar() {
           Logout
         </button>
       </div>
-    </aside>
+    </>
+  );
+
+  return (
+    <>
+      {/* Mobile Top Bar */}
+      <div className="fixed top-0 right-0 left-0 z-40 flex items-center gap-3 border-b border-border/50 bg-card/80 px-4 py-3 backdrop-blur-xl lg:hidden">
+        <button
+          onClick={() => setMobileOpen(true)}
+          className="rounded-lg p-1.5 text-muted-foreground transition-all hover:bg-muted/50 hover:text-foreground"
+        >
+          <Menu className="h-5 w-5" />
+        </button>
+        <div className="flex items-center gap-2">
+          <div className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-violet-500 to-indigo-600 font-bold text-xs text-white">
+            A
+          </div>
+          <span className="font-semibold text-sm">Admin Panel</span>
+        </div>
+      </div>
+
+      {/* Mobile Overlay */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+
+      {/* Mobile Sidebar (slide-in drawer) */}
+      <aside
+        className={cn(
+          "fixed top-0 left-0 z-50 flex h-screen w-72 flex-col border-r border-border/50 bg-card/95 backdrop-blur-xl transition-transform duration-300 ease-in-out lg:hidden",
+          mobileOpen ? "translate-x-0" : "-translate-x-full",
+        )}
+      >
+        {sidebarContent}
+      </aside>
+
+      {/* Desktop Sidebar (always visible) */}
+      <aside className="sticky top-0 hidden h-screen w-64 flex-col border-r border-border/50 bg-card/50 backdrop-blur-xl lg:flex">
+        {sidebarContent}
+      </aside>
+    </>
   );
 }
